@@ -1,5 +1,6 @@
 {
-  "playerId": "BrokenBlade",
+  "playerId": 1,
+  "ign": "BrokenBlade",
   "teamTag": "TSM",
   "team": "Team Solo Mid",
   "role": "top"

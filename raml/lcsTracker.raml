@@ -33,12 +33,12 @@ traits:
           application/json:
             type: typePlayer[]
         
-  /{ign}:
+  /{playerId}:
     uriParameters:
-      ign:
-        type: string
+      playerId:
+        type: integer
     get:
-      description: "get a player by their ign"
+      description: "get a player by their id"
       responses:
         200:
           body:
@@ -60,7 +60,7 @@ traits:
           example: !include examples/player.example
       is: responseMessage
     delete:
-      description: "removes the entry for ign"
+      description: "removes the entry for given id"
       is: responseMessage
 
 /teams:
@@ -85,12 +85,12 @@ traits:
           application/json:
             type: typeTeam[]
             example: !include examples/team-array.example
-  /{teamTag}:
+  /{teamId}:
     uriParameters:
-      teamTag:
-        type: string
+      teamId:
+        type: integer
     get:
-      description: "get the team info for the team tag"
+      description: "get the team info for the team id"
       responses:
         200:
           body:
