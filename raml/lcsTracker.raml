@@ -1,0 +1,100 @@
+#%RAML 1.0
+title: lcsTracker
+baseUri: http://urlhere.com/{version}
+version: v1
+
+types:
+  typeTeam: !include typeTeam.raml
+  typePlayer: !include typePlayer.raml
+  
+
+/players:
+  description: "collection of all currently active professional players"
+  post:
+    description: "add a new player of playerID to the league"
+    body:
+      application/json:
+        type: typePlayer
+        example: !include player.example
+  get:
+    description: "get a list of players in a specific region"
+    queryParameters:
+      region: 
+        type: string
+        required: true
+        minLength: 2
+        maxLength: 3
+    responses:
+      200:
+        body:
+          application/json:
+            type: typePlayer[]
+        
+  /{playerId}:
+    uriParameters:
+      playerId:
+        type: string
+    get:
+      description: "get a player by their ID"
+      responses:
+        200:
+          body:
+            application/json:
+              type: typePlayer
+              example: !include player.example
+        404:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "Player not found"
+                }
+    put:
+      description: "update info of a specific player"
+      body:
+        application/json:
+          type: typePlayer
+          example: !include player.example
+    delete:
+      description: "removes the entry for playerId"
+
+/teams:
+  description: "collection of all active professional teams"
+  post:
+    description: "adds new team to the active database"
+    body:
+      application/json:
+        type: typeTeam
+        example: !include team.example
+  get:
+    description: "get list of teams from given region"
+    queryParameters:
+      region:
+        type: string
+        minLength: 2
+        maxLength: 3
+    responses:
+      200:
+        body:
+          application/json:
+            type: typeTeam[]
+  /{teamTag}:
+    uriParameters:
+      teamTag:
+        type: string
+    get:
+      description: "get the team info for the team tag"
+      responses:
+        200:
+          body:
+            application/json:
+              type: typeTeam
+              example: !include team.example
+    put:
+      description: "update team info"
+      body:
+        application/json:
+          type: typeTeam
+          example: !include team.example
+    delete:
+      description: "remove the team from the db"
