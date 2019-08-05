@@ -50,7 +50,7 @@ traits:
             application/json:
               example: |
                 {
-                  "message": "Player not found"
+                  "message": "Player not found."
                 }
     put:
       description: "update info of a specific player"
@@ -60,7 +60,7 @@ traits:
           example: !include examples/player.example
       is: responseMessage
     delete:
-      description: "removes the entry for playerId"
+      description: "removes the entry for ign"
       is: responseMessage
 
 /teams:
@@ -97,6 +97,11 @@ traits:
             application/json:
               type: typeTeam
               example: !include examples/team.example
+        404:
+          body:
+            application/json:
+              example: |
+                {"message": "Team not found."}
     put:
       description: "update team info"
       body:

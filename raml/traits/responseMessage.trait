@@ -4,3 +4,8 @@ responses:
 			application/json:
 				example: |
 					{"message":"Successful database modication"}
+	401:
+		body:
+			application/json:
+				example: |
+					{"message":"Database modification unsuccessful"}
