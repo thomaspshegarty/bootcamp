@@ -4,8 +4,8 @@ baseUri: http://urlhere.com/{version}
 version: v1
 
 types:
-  typeTeam: !include typeTeam.raml
-  typePlayer: !include typePlayer.raml
+  typeTeam: !include types/typeTeam.raml
+  typePlayer: !include types/typePlayer.raml
   
 
 /players:
@@ -15,7 +15,12 @@ types:
     body:
       application/json:
         type: typePlayer
-        example: !include player.example
+        example: !include examples/player.example
+    responses:
+      201:
+        body:
+          application/json:
+            example: !include successCode.example
   get:
     description: "get a list of players in a specific region"
     queryParameters:
@@ -41,7 +46,7 @@ types:
           body:
             application/json:
               type: typePlayer
-              example: !include player.example
+              example: !include examples/player.example
         404:
           body:
             application/json:
@@ -54,9 +59,19 @@ types:
       body:
         application/json:
           type: typePlayer
-          example: !include player.example
+          example: !include examples/player.example
+      response:
+        201:
+          body:
+            application/json:
+              example: !include successCode.example
     delete:
       description: "removes the entry for playerId"
+      responses:
+        204:
+          body:
+            application/json:
+              example: !include successCode.example
 
 /teams:
   description: "collection of all active professional teams"
@@ -65,7 +80,12 @@ types:
     body:
       application/json:
         type: typeTeam
-        example: !include team.example
+        example: !include examples/team.example
+    responses:
+      201:
+        body:
+          application/json:
+            example: !include successCode.example
   get:
     description: "get list of teams from given region"
     queryParameters:
@@ -89,12 +109,22 @@ types:
           body:
             application/json:
               type: typeTeam
-              example: !include team.example
+              example: !include examples/team.example
     put:
       description: "update team info"
       body:
         application/json:
           type: typeTeam
-          example: !include team.example
+          example: !include examples/team.example
+      responses:
+        201:
+          body:
+            application/json:
+              example: !include successCode.example
     delete:
       description: "remove the team from the db"
+      responses:
+        204:
+          body:
+            application/json:
+              example: !include successCode.example
