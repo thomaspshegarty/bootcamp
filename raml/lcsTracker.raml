@@ -1,30 +1,28 @@
 #%RAML 1.0
 title: lcsTracker
-baseUri: http://urlhere.com/{version}
+baseUri: https://basicurl.com/{version}
 version: v1
 
 types:
   typeTeam: !include types/typeTeam.raml
   typePlayer: !include types/typePlayer.raml
   
+traits:
+  responseMessage: !include traits/responseMessage.trait
 
 /players:
   description: "collection of all currently active professional players"
   post:
-    description: "add a new player of playerID to the league"
+    description: "add new players to the database "
     body:
       application/json:
-        type: typePlayer
-        example: !include examples/player.example
-    responses:
-      201:
-        body:
-          application/json:
-            example: !include successCode.example
+        type: typePlayer[]
+        example: !include examples/player-array.example
+    is: responseMessage
   get:
-    description: "get a list of players in a specific region"
+    description: "get a list of players on a specific team"
     queryParameters:
-      region: 
+      teamTag: 
         type: string
         required: true
         minLength: 2
@@ -35,12 +33,12 @@ types:
           application/json:
             type: typePlayer[]
         
-  /{playerId}:
+  /{ign}:
     uriParameters:
-      playerId:
+      ign:
         type: string
     get:
-      description: "get a player by their ID"
+      description: "get a player by their ign"
       responses:
         200:
           body:
@@ -60,32 +58,20 @@ types:
         application/json:
           type: typePlayer
           example: !include examples/player.example
-      response:
-        201:
-          body:
-            application/json:
-              example: !include successCode.example
+      is: responseMessage
     delete:
       description: "removes the entry for playerId"
-      responses:
-        204:
-          body:
-            application/json:
-              example: !include successCode.example
+      is: responseMessage
 
 /teams:
   description: "collection of all active professional teams"
   post:
-    description: "adds new team to the active database"
+    description: "adds new teams to the active database"
     body:
       application/json:
-        type: typeTeam
-        example: !include examples/team.example
-    responses:
-      201:
-        body:
-          application/json:
-            example: !include successCode.example
+        type: typeTeam[]
+        example: !include examples/team-array.example
+    is: responseMessage
   get:
     description: "get list of teams from given region"
     queryParameters:
@@ -98,6 +84,7 @@ types:
         body:
           application/json:
             type: typeTeam[]
+            example: !include examples/team-array.example
   /{teamTag}:
     uriParameters:
       teamTag:
@@ -116,15 +103,7 @@ types:
         application/json:
           type: typeTeam
           example: !include examples/team.example
-      responses:
-        201:
-          body:
-            application/json:
-              example: !include successCode.example
+      is: responseMessage
     delete:
       description: "remove the team from the db"
-      responses:
-        204:
-          body:
-            application/json:
-              example: !include successCode.example
+      is: responseMessage
