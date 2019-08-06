@@ -11,12 +11,13 @@ traits:
   responseMessage: !include traits/responseMessage.raml
 
 securitySchemes:
-  oauth_2: !include security/oauth_2_0.raml
+  basic: !include security/basic.raml
+
+securedBy: [basic]
 
 /players:
   description: "collection of all currently active professional players"
   post:
-    securedBy: [ oauth_2 ]
     description: "add new players to the database"
     body:
       application/json:
@@ -58,7 +59,6 @@ securitySchemes:
                   "message": "Player not found."
                 }
     put:
-      securedBy: [oauth_2]
       description: "update info of a specific player"
       body:
         application/json:
@@ -66,14 +66,12 @@ securitySchemes:
           example: !include examples/player.json
       is: responseMessage
     delete:
-      securedBy: [oauth_2]
       description: "removes the entry for given id"
       is: responseMessage
 
 /teams:
   description: "collection of all active professional teams"
   post:
-    securedBy: [oauth_2]
     description: "adds new teams to the active database"
     body:
       application/json:
@@ -112,7 +110,6 @@ securitySchemes:
               example: |
                 {"message": "Team not found."}
     put:
-      securedBy: [oauth_2]
       description: "update team info"
       body:
         application/json:
@@ -120,6 +117,5 @@ securitySchemes:
           example: !include examples/team.json
       is: responseMessage
     delete:
-      securedBy: [oauth_2]
       description: "remove the team from the db"
       is: responseMessage
