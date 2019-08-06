@@ -8,23 +8,23 @@ types:
   typePlayer: !include types/typePlayer.raml
   
 traits:
-  responseMessage: !include traits/responseMessage.trait
+  responseMessage: !include traits/responseMessage.raml
 
 /players:
   description: "collection of all currently active professional players"
   post:
-    description: "add new players to the database "
+    description: "add new players to the database"
     body:
       application/json:
         type: typePlayer[]
-        example: !include examples/player-array.example
+        example: !include examples/playerArray.json
     is: responseMessage
   get:
     description: "get a list of players on a specific team"
     queryParameters:
       teamTag: 
         type: string
-        required: true
+        required: false
         minLength: 2
         maxLength: 3
     responses:
@@ -32,7 +32,7 @@ traits:
         body:
           application/json:
             type: typePlayer[]
-            example: !include examples/player-array.example
+            example: !include examples/playerArray.json
         
   /{playerId}:
     uriParameters:
@@ -45,7 +45,7 @@ traits:
           body:
             application/json:
               type: typePlayer
-              example: !include examples/player.example
+              example: !include examples/player.json
         404:
           body:
             application/json:
@@ -58,7 +58,7 @@ traits:
       body:
         application/json:
           type: typePlayer
-          example: !include examples/player.example
+          example: !include examples/player.json
       is: responseMessage
     delete:
       description: "removes the entry for given id"
@@ -71,13 +71,14 @@ traits:
     body:
       application/json:
         type: typeTeam[]
-        example: !include examples/team-array.example
+        example: !include examples/teamArray.json
     is: responseMessage
   get:
     description: "get list of teams from given region"
     queryParameters:
       region:
         type: string
+        required: false
         minLength: 2
         maxLength: 3
     responses:
@@ -85,7 +86,7 @@ traits:
         body:
           application/json:
             type: typeTeam[]
-            example: !include examples/team-array.example
+            example: !include examples/teamArray.json
   /{teamId}:
     uriParameters:
       teamId:
@@ -97,7 +98,7 @@ traits:
           body:
             application/json:
               type: typeTeam
-              example: !include examples/team.example
+              example: !include examples/team.json
         404:
           body:
             application/json:
@@ -108,7 +109,7 @@ traits:
       body:
         application/json:
           type: typeTeam
-          example: !include examples/team.example
+          example: !include examples/team.json
       is: responseMessage
     delete:
       description: "remove the team from the db"
