@@ -23,7 +23,7 @@ securedBy: [basic]
       application/json:
         type: typePlayer[]
         example: !include examples/playerArray.json
-    is: responseMessage
+    is: [ responseMessage ]
   get:
     description: "get a list of players on a specific team"
     queryParameters:
@@ -64,10 +64,10 @@ securedBy: [basic]
         application/json:
           type: typePlayer
           example: !include examples/player.json
-      is: responseMessage
+      is: [ responseMessage ]
     delete:
       description: "removes the entry for given id"
-      is: responseMessage
+      is: [ responseMessage ]
 
 /teams:
   description: "collection of all active professional teams"
@@ -77,7 +77,7 @@ securedBy: [basic]
       application/json:
         type: typeTeam[]
         example: !include examples/teamArray.json
-    is: responseMessage
+    is: [ responseMessage ]
   get:
     description: "get list of teams from given region"
     queryParameters:
@@ -115,7 +115,7 @@ securedBy: [basic]
         application/json:
           type: typeTeam
           example: !include examples/team.json
-      is: responseMessage
+      is: [ responseMessage ]
     delete:
       description: "remove the team from the db"
-      is: responseMessage
+      is: [ responseMessage ]
