@@ -8,7 +8,7 @@ types:
   typePlayer: !include types/typePlayer.raml
   
 traits:
-  responseMessage: !include traits/responseMessage.raml
+  hasError: !include traits/responseMessage.raml
 
 securitySchemes:
   basic: !include security/basic.raml
@@ -16,6 +16,7 @@ securitySchemes:
 securedBy: [basic]
 
 /teams:
+  is: [hasError]
   description: "collection of all active professional teams"
   post:
     description: "adds new teams to the active database"
