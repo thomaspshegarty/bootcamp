@@ -64,7 +64,7 @@ securedBy: [basic]
           type: typeTeam
           example: !include examples/team.json
       responses:
-        201:
+        200:
           body:
             application/json:
               type: typeTeam
@@ -73,10 +73,6 @@ securedBy: [basic]
       description: "remove the team from the db"
       responses: 
         204:
-          body:
-            application/json:
-              example: |
-                {"message": "No content"}
     /players:
       description: "collection of all currently active professional players"
       post:
@@ -124,7 +120,7 @@ securedBy: [basic]
               type: typePlayer
               example: !include examples/player.json
           responses: 
-            201:
+            200:
               body:
                 application/json:
                   type: typePlayer
@@ -133,7 +129,3 @@ securedBy: [basic]
           description: "removes the entry for given id"
           responses: 
             204:
-              body:
-                application/json:
-                  example: |
-                    {"message": "No content"}
