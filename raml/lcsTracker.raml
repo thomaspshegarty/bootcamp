@@ -23,7 +23,18 @@ securedBy: [basic]
       application/json:
         type: typeTeam[]
         example: !include examples/teamArray.json
-    is: [ responseMessage ]
+    responses:
+      201:
+        body:
+          application/json:
+            type: typeTeam[]
+            example: !include examples/teamArray.json
+      400:
+        body:
+          application/json:
+            example: |
+              {"message": "post failed"}
+
   get:
     description: "get list of teams from given region"
     queryParameters:
@@ -38,6 +49,11 @@ securedBy: [basic]
           application/json:
             type: typeTeam[]
             example: !include examples/teamArray.json
+      404:
+        body:
+          application/json:
+              example: |
+                {"message": "no teams found"}
   /{teamId}:
     uriParameters:
       teamId:
@@ -61,10 +77,30 @@ securedBy: [basic]
         application/json:
           type: typeTeam
           example: !include examples/team.json
-      is: [ responseMessage ]
+      responses:
+        201:
+          body:
+            application/json:
+              type: typeTeam
+              example: !include examples/team.json
+        400:
+          body:
+            application/json:
+              example: |
+                {"message": "update failed"}
     delete:
       description: "remove the team from the db"
-      is: [ responseMessage ]
+      responses: 
+        204:
+          body:
+            application/json:
+              example: |
+                {"message": "No content"}
+        400:
+          body:
+            application/json:
+              example: |
+                {"message" : "Delete failed"}
 
     /players:
       description: "collection of all currently active professional players"
@@ -74,7 +110,17 @@ securedBy: [basic]
           application/json:
             type: typePlayer[]
             example: !include examples/playerArray.json
-        is: [ responseMessage ]
+        responses: 
+          201:
+            body:
+              application/json:
+                type: typePlayer[]
+                example: !include examples/playerArray.json
+          400:
+            body:
+              application/json:
+                example: |
+                  {"message": "Failed to add players"}
       get:
         description: "get a list of players on a specific team"
         queryParameters:
@@ -89,7 +135,11 @@ securedBy: [basic]
               application/json:
                 type: typePlayer[]
                 example: !include examples/playerArray.json
-            
+          404:
+            body:
+              application/json:
+                example: |
+                  {"message": "Players not found"}
       /{playerId}:
         uriParameters:
           playerId:
@@ -115,7 +165,27 @@ securedBy: [basic]
             application/json:
               type: typePlayer
               example: !include examples/player.json
-          is: [ responseMessage ]
+          responses: 
+            201:
+              body:
+                application/json:
+                  type: typePlayer
+                  example: !include examples/player.json
+            400:
+              body:
+                application/json:
+                  example: |
+                    {"message": "failed to update player"}
         delete:
           description: "removes the entry for given id"
-          is: [ responseMessage ]
+          responses: 
+            204:
+              body:
+                application/json:
+                  example: |
+                    {"message": "No content"}
+            400:
+              body:
+                application/json:
+                  example:
+                    {"message": "Failed to delete"}
